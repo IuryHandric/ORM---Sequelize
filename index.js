@@ -1,6 +1,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
+const conn = require('./db/conn')
 
 const routersPublics = require('./routes/routes')
 
@@ -21,6 +22,12 @@ app.use(express.json());
 
 app.use('/', routersPublics);
 
-app.listen(3000, () => console.log('Servidor rodadndo na porta http://localhost:3000'))
+// Iniciação do servidor condicionada a conexão com o banco de dados
 
+conn
+    .sync()
+    .then(() => {
+        app.listen(3000, () => console.log('Servidor rodadndo na porta http://localhost:3000'))
+    })
+    .catch((e) => console.log(e))
 
