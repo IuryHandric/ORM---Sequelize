@@ -1,16 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const conn = require('../db/conn')
 
 const User = require('../models/User')
 
-router.get('/', (req, res) => {
-    res.render('home')
+// READ
+
+router.get('/', async (req, res) => {
+
+    // Trazendo todos os registros
+    // Sem o raw ele traz mais informações, com o raw ele já trás os dados mais fáceis para utilização
+    const users = await User.findAll({raw: true})
+
+    console.log(users)
+
+    res.render('home', {users: users})
 })
 
 router.get('/users/create', (req,res) => {
     res.render('adduser')
 })
+
+// CREATE
 
 router.post('/users/create', async (req, res) => {
     const name = req.body.name
