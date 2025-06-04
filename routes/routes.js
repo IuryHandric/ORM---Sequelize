@@ -70,9 +70,14 @@ router.post('/users/delete/:id', async (req, res) => {
 router.get('/users/edit/:id', async (req, res) => {
     const id = req.params.id
 
-    const user = await User.findOne({ raw: true, where: { id: id } })
+    try {
+        const user = await User.findOne({ include: Address, where: { id: id } })
+        // Usando o objeto dessa forma para conseguir ler o endereço passado pelo relacionamento
+        res.render('useredit', { user: user.get({plain: true}) })
+    } catch(e) {
+        console.log(e)
+    }
 
-    res.render('useredit', { user: user })
 })
 
 // UPDATE
@@ -101,7 +106,6 @@ router.post('/users/update', async (req, res) => {
     res.redirect('/');
 
 })
-
 
 router.post('/address/create', async (req, res) =>{
     const UserId = req.body.UserId

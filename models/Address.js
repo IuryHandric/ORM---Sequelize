@@ -21,7 +21,10 @@ const Address = db.define('Address', {
     }
 })
 
-// Fazendo relação com a tabela de usuário
+// Fazendo relação com a tabela de usuário e o contrário
+
+// Um usuário pode ter vários endereços
+User.hasMany(Address)
 // Informando que dentro de Address eu quero criar uma coluna com ID do Usuário
 Address.belongsTo(User)
 
