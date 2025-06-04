@@ -42,6 +42,8 @@ router.post('/users/create', async (req, res) => {
 
 })
 
+// READ
+
 router.get('/users/:id', async (req, res) => {
     const id = req.params.id
 
@@ -51,5 +53,19 @@ router.get('/users/:id', async (req, res) => {
 
     res.render('userview', { user })
 })
+
+// DELETE
+
+router.post('/users/delete/:id', async (req, res) => {
+    const id = req.params.id
+    
+    await User.destroy({where: {id: id}})
+
+    res.redirect('/')
+})
+
+
+
+
 
 module.exports = router;

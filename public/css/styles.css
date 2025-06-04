@@ -79,4 +79,30 @@ h1 {
 
 .actions {
     display: flex;
+    justify-content: space-between;
+}
+
+.actions a,
+.actions input {
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Botão de detalhes */
+.actions .details-btn {
+    border-color: #004085;
+    background-color: #004085;
+    color: #fff;
+}
+
+/* Botão de deletar */
+.actions .delete-btn {
+    border-color: #721c24;
+    background-color: #721c24;
+    color: #fff;
 }
