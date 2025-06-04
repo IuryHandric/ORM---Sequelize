@@ -75,6 +75,8 @@ router.get('/users/edit/:id', async (req, res) => {
     res.render('useredit', { user: user })
 })
 
+// UPDATE
+
 router.post('/users/update', async (req, res) => {
     const id = req.body.id;
     const name = req.body.name;
@@ -98,6 +100,25 @@ router.post('/users/update', async (req, res) => {
 
     res.redirect('/');
 
+})
+
+
+router.post('/address/create', async (req, res) =>{
+    const UserId = req.body.UserId
+    const street = req.body.street
+    const number = req.body.number
+    const city = req.body.city
+
+    const address = {
+        UserId,
+        street,
+        number,
+        city
+    }
+
+    await Address.create(address)
+
+    res.redirect(`/users/edit/${UserId}`);
 })
 
 module.exports = router;

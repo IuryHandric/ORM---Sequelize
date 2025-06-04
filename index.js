@@ -25,9 +25,9 @@ app.use('/', routersPublics);
 // Iniciação do servidor condicionada a conexão com o banco de dados
 
 conn
-    // .sync()
+    .sync()
     // ESSE MÉTODO FORÇA A CRIAÇÃO DA TABELA NOVAMENTE, CUIDADO A SER UTILIZADO, POIS DELETA A TABELA ANTERIOR (JUNTO COM OS DADOS) E RECRIA UMA NOVA
-    .sync({force: true}) 
+    // .sync({force: true}) 
     .then(() => {
         app.listen(3000, () => console.log('Servidor rodadndo na porta http://localhost:3000'))
     })
