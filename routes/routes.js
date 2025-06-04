@@ -58,14 +58,45 @@ router.get('/users/:id', async (req, res) => {
 
 router.post('/users/delete/:id', async (req, res) => {
     const id = req.params.id
-    
-    await User.destroy({where: {id: id}})
+
+    await User.destroy({ where: { id: id } })
 
     res.redirect('/')
 })
 
+// UPDATE
+// FORMULÁRIO
+router.get('/users/edit/:id', async (req, res) => {
+    const id = req.params.id
 
+    const user = await User.findOne({ raw: true, where: { id: id } })
 
+    res.render('useredit', { user: user })
+})
 
+router.post('/users/update', async (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const occupation = req.body.occupation;
+    let newsletter = req.body.newsletter
+
+    if (newsletter === 'on') {
+        newsletter = true
+    } else {
+        newsletter = false
+    }
+    // Como o nome da variável e o nome do valor são iguais, o objeto pode ser montado dessa forma
+    const userData = {
+        id,
+        name,
+        occupation,
+        newsletter
+    }
+
+    await User.update(userData, { where: { id: id } })
+
+    res.redirect('/');
+
+})
 
 module.exports = router;
